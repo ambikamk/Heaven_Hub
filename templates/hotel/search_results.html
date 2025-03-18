@@ -1,0 +1,112 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #e8e6f5;;
+    }
+
+    .container-fluid {
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 80px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .search-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        margin-bottom: 15px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+
+    .search-item img {
+        width: 150px;
+        height: 150px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .details {
+        flex: 1;
+        margin-left: 20px;
+        color: #333;
+    }
+
+    .details h5 {
+        margin: 0 0 10px;
+    }
+
+    .details p {
+        margin: 5px 0;
+        font-size: 0.9em;
+        color: #555;
+    }
+
+    .details p i {
+        color: #1212f5;
+        margin-right: 10px;
+    }
+
+    .view-button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s;
+        text-decoration: none;
+    }
+
+    .view-button:hover {
+        background-color: #0056b3;
+    }
+</style>
+<div class="container-fluid">
+    <div class="container">
+        <h2>Search Results</h2>
+        <p>Showing results for: <strong>{{ query }}</strong></p>
+        {% if hotels %}
+            {% for hotel in hotels %}
+                <div class="search-item">
+                    <a href="{% url 'hotel:hotel_detail' hotel.slug %}"><img src="{{ hotel.image.url }}" alt="{{ hotel.name }}"></a>
+                    <div class="details">
+                        <h5>{{ hotel.name }}</h5>
+                        <p><i class="fas fa-map-marker-alt"></i>{{ hotel.address }}</p>
+                        <p><i class="fas fa-envelope"></i>{{ hotel.email }}</p>
+                        <p><i class="fas fa-phone"></i>{{ hotel.mobile }}</p>
+                    </div>
+                    
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center text-muted">No hotels found matching your search.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,85 @@
+{% extends 'partials/dashboard_base.html' %}
+{% block content %}
+    <title>Booking Detail</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        .section-title {
+            font-weight: bold;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            background-color: rgb(59, 56, 56);
+            padding: 20px;
+            color: #ddd;
+        }
+        .detail-container {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .view-invoice {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Left Section -->
+            <div class="col-lg-8">
+                <div class="detail-container">
+                    <h5 class="section-title">Booking ID: {{booking.booking_id}}</h5>
+                    <p><strong>{{booking.full_name|title}}</strong><span class="badge bg-success"> {{booking.payment_status}}</span></p><br>
+                    <p><strong>Hotel Name:</strong>{{booking.hotel.name}}</p>
+                    <p><strong>Address:</strong> {{booking.hotel.address}}</p>
+                    <p><strong>Email:</strong> {{booking.hotel.email}}</p>
+                    <p><strong>Phone:</strong> {{booking.hotel.mobile}}</p><hr><br>
+                    <p><strong>Check-In Date:</strong> {{booking.check_in_date}}</p>
+                    <p><strong>Check-Out Date:</strong> {{booking.check_out_date}}</p>
+                    <p><strong>Total Days:</strong>{{booking.total_days}}</p>
+                    <p><strong>Adults:</strong> {{booking.num_adults}}</p>
+                    <p><strong>Children:</strong> {{booking.num_children}}</p><hr><br>
+                    <p><strong>Full Name:</strong>{{booking.full_name}}</p>
+                    <p><strong>Email Address:</strong>{{booking.email}}</p>
+                    <p><strong>Phone Number:</strong> {{booking.phone}}</p><hr><br>
+                    <p><strong>Price:</strong> ${{booking.total}}</p>
+                    <p><strong>Date Booked:</strong>{{booking.date}}</p>
+                    <a href="{% url 'hotel:generate_invoice' booking.booking_id %}"><button class="btn  view-invoice" style="float:right; background-color: gray;">View Invoice</button></a>
+                    {% if not booking.is_cancelled %}
+<div class="booking-actions">
+    <a href="{% url 'user_dashboard:cancel_booking' booking.booking_id %}" class="btn btn-danger">
+        Cancel Booking
+    </a>
+</div>
+{% else %}
+<div class="alert alert-info">
+    This booking has been cancelled.
+</div>
+{% endif %}
+                </div>
+            </div>
+
+            <!-- Right Section -->
+            <div class="col-lg-4">
+                <div class="detail-container">
+                    <h5 class="section-title">Booked Rooms ({{booking.room.all.count}})</h5>
+                    {% for r in booking.room.all %}
+                    <div class="mb-3">
+                        <p><strong>Room Type:</strong>{{r.room_type.type}}</p>
+                        <p><strong>Room Number:</strong> {{r.room_number}}</p>
+                        <p><strong>Room Price:</strong> ${{r.room_type.price}}</p>
+                    </div><hr><br>
+                    {% endfor %}
+                    
+                     
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+{% endblock content %}
+

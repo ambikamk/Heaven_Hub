@@ -1,0 +1,124 @@
+{% extends 'partials/dashboard_base.html' %}
+{% block content %}
+    <title>Wallet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            flex: 1;
+            padding: 20px;
+            color: #fff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.2em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card.total-spent {
+            background-color: #2801a5;
+        }
+
+        .card.wallet-balance {
+            background-color: #19adf1;
+        }
+
+        .card i {
+            font-size: 2em;
+        }
+
+        .history {
+            margin-top: 20px;
+        }
+
+        .history h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .history-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-item span {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .details {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .details strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wallet</h1>
+        <div class="cards">
+            <div class="card total-spent">
+                <i class="fas fa-dollar-sign"></i>
+                <div>Total Spent</div>
+                <div> ${{total_spent.amount}}</div>
+            </div>
+            <div class="card wallet-balance">
+                <i class="fas fa-wallet"></i>
+                <div>Wallet Balance</div>
+                <div> ${{wallet_balance}}</div>
+            </div>
+        </div>
+
+        <div class="history">
+            <h2>Spent History</h2>
+            {% for b in bookings %}
+            <div class="history-item">
+                <div>
+                    <strong>{{b.hotel.name}}</strong> <span style="background-color: rgb(200, 193, 193);">{{b.payment_status}} ${{b.total}}</span>
+                    <div class="details">
+                        Order Number: <strong>#{{b.booking_id}}</strong>, Date: <strong>{{b.date}}</strong>, Spent: <strong>${{b.total}}</strong>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+{% endblock content %}

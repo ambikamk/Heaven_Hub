@@ -1,0 +1,72 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+
+        <!-- Header Start -->
+        <div class="container-fluid bg-breadcrumb">
+            <div class="container text-center py-5" style="max-width: 900px;">
+                <h3 class="text-white display-3 mb-4">About Us</h1>
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{% url 'hotel:index'%}">Home</a></li>
+                    
+                    <li class="breadcrumb-item active text-white">About</li>
+                </ol>    
+            </div>
+        </div>
+        <!-- Header End -->
+
+        <!-- About Start -->
+        <div class="container-fluid about py-5">
+            <div class="container py-5">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-5">
+                        <div class="h-100" style="border: 50px solid; border-color: transparent #13357B transparent #13357B;">
+                            <img src="{% static 'img/about.jpg' %}" class="img-fluid w-100 h-200" style="height:400px" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-7" style="background: linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, .8)), url(img/about-img-1.png);">
+                        <h5 class="section-about-title pe-3">About Us</h5>
+                        <h1 class="mb-4">Welcome to <span class="text-primary">HavenHub</span></h1>
+                        <p class="mb-4">At HavenHub, we bring the joy of effortless travel planning to your fingertips. 
+                            Our platform is designed to help you find and book the perfect hotel that matches your style, budget, and preferences. 
+                            With a seamless interface and a wide array of accommodation options, we ensure that your journey starts with comfort and ease. 
+                            Whether you're planning a luxurious getaway or a budget-friendly adventure, HavenHub is your trusted partner for all your hotel booking needs.
+
+                        </p>
+                        <p class="mb-4">Our commitment goes beyond just bookings. At HavenHub, we believe in delivering personalized experiences by offering tailored recommendations, secure payment options, and 24/7 customer support. 
+                            With us, you don’t just book a hotel—you step into a world of convenience, reliability, and unparalleled hospitality. 
+                            Your comfort is our priority, and your satisfaction is our success.</p>
+
+                        <div class="row gy-2 gx-4 mb-4">
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Seamless Booking Experience</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Tailored Recommendations</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Wide Accommodation Options</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>24/7 Customer Support</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Secure Payments</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Exclusive Deals and Offers</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+       
+
+        {% endblock content %}
+
+        

@@ -1,0 +1,79 @@
+{% extends 'partials/dashboard_base.html' %}
+{% block content %}
+
+    <title>Notifications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .notification {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification:hover {
+            background: #f0f0f0;
+        }
+
+        .notification-text {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .close-icon {
+            font-size: 18px;
+            color: #888;
+            cursor: pointer;
+        }
+
+        .close-icon:hover {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Notifications</div>
+        {% for n in notifications %}
+        <div class="notification">
+            {% if n.type == "Booking Confirmed" %}
+                <div class="notification-text">Your booking has been confirmed. Booking ID: {{n.booking.booking_id}}</div>
+                <a href="{% url 'user_dashboard:notification_mark_as_seen' n.id %}" ><i class="fas fa-times " title="Dismiss"></i></a>
+            {% else %}
+                <div class="notification-text">Your booking has been cancelled. Booking ID: {{n.booking.booking_id}}</div>
+                <a href="{% url 'user_dashboard:notification_mark_as_seen' n.id %}" ><i class="fas fa-times" title="Dismiss"></i></a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+   
+</body>
+{% endblock content %}

@@ -1,0 +1,821 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+    <title>Hotel Detail Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-bg: #2c3e50;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
+            margin: 0;
+            color: var(--primary-color);
+            line-height: 1.6;
+            
+        }
+
+        h1, h2, h3, h4, h5, h6,p {
+            font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--dark-bg);
+            font-weight: 400;
+            /* font-size: 14px;
+            line-height: 20px; */
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            padding: 30px;
+            margin: 30px auto;
+        }
+
+        /* Carousel Styling */
+        .carousel {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .carousel-item img {
+            height: 500px;
+            object-fit: cover;
+        }
+
+        /* Button Styling */
+        .btn {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            border-color: var(--warning-color);
+        }
+
+        /* Section Headers */
+        .section-header {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        /* Tags Styling */
+        .tags span {
+            background-color: #edf2f7;
+            color: var(--secondary-color);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .tags span:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        /* Room Type Styling */
+        .room-type-list {
+            
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .room-type-list:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+
+        .room-type-name {
+            color: var(--dark-bg);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .price {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Form Styling */
+        .form-control {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.2rem rgba(52,152,219,0.25);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+
+        /* Review Section */
+        .review-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .review-rating-box {
+            background: linear-gradient(135deg, var(--dark-bg), var(--secondary-color));
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .review-item {
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .review-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .profile-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-color);
+            object-fit: cover;
+        }
+
+        /* Star Rating */
+        .utf_star_rating_section {
+            color: #f1c40f;
+            font-size: 1.2rem;
+        }
+
+        /* FAQ Section */
+        .faq .question {
+            background-color: var(--light-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq .question:hover {
+            background-color: #e9ecef;
+        }
+
+        .faq .answer {
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        /* Quantity Buttons */
+        .quantity-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-buttons button {
+            background-color: var(--light-bg);
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-buttons button:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        /* Amenities Section */
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .amenity-item {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .amenity-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .amenity-item i {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-right: 10px;
+        }
+
+        .amenity-item span {
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .amenities-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .amenities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Custom Styles for Specific Elements */
+        h5[style*="background-color: purple"] {
+            background: linear-gradient(135deg, var(--dark-bg), var(--secondary-color)) !important;
+            color: white !important;
+            border-radius: 8px;
+            padding: 15px !important;
+        }
+
+        h5[style*="background-color: rgb(10, 196, 56)"] {
+            background: linear-gradient(135deg, var(--success-color), #2ecc71) !important;
+            border-radius: 8px;
+        }
+
+        button[style*="background-color: purple"] {
+            background: linear-gradient(135deg, var(--accent-color), #2980b9) !important;
+            color: white !important;
+            border: none;
+            font-weight: 500;
+        }
+.review-comment {
+    font-size: 14px;
+    color: #333;
+}
+
+.date {
+    font-size: 12px;
+    color: #888;
+}
+
+.review-comment {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+}
+
+    </style>
+
+    <body>
+        <div class="container my-4">
+            <!-- Carousel -->
+            <div id="roomCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for hotel_gallery in hotel.hotel_gallery.all %}
+                    <div class="carousel-item active">
+                        <img src="{{hotel_gallery.image.url}}" class="d-block w-100" alt="Room 1">
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#roomCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#roomCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <div class="row mt-4">
+                <!-- Hotel Details -->
+                <div class="col-md-8">
+                    <h2>{{hotel.name}}</h2><br>
+                    <i class="fa fa-map-marker-alt me-2"></i><p  style="display: inline">{{hotel.address}}</p><br><br>
+                    <i class="fa fa-phone me-2"></i><p  style="display: inline">{{hotel.mobile}}</p><br><br>
+                    <i class="fa fa-envelope me-2"></i><p  style="display: inline">{{hotel.email}}</p><br><br>
+                    <div class="utf_counter_star_rating">
+                        <span>
+                            {% if hotel.average_rating %}
+                                {% with ''|center:hotel.average_rating as range %}
+                                {% for _ in range %}★{% endfor %}
+                                {% endwith %}
+                                {% with ''|center:5|slice:hotel.average_rating as range %}
+                                {% for _ in range %}☆{% endfor %}
+                                {% endwith %}
+                            {% else %}
+                                ☆☆☆☆☆
+                            {% endif %}
+                        </span>
+                        <span style="background-color: rgb(25, 134, 25); color: white; ">
+                            {% if hotel.average_rating %}
+                                ({{ hotel.average_rating }}/5.0)
+                            {% else %}
+                                (0/5.0)
+                            {% endif %}
+                             - ({{ hotel.rating_count }} Reviews)
+                        </span>
+                    </div><br>
+                    <div class="btn-inline">
+                        {% if bookmark %} 
+                           <a  data-hotel="{{hotel.id}}" class="add-to-bookmark-{{hotel.id}}" id="add-to-bookmark"><button class="btn btn-primary btn-sm"> <i class="fa fa-heart" style="color: red; fill: red;"></i></button></a>
+                        {% else %}
+                          <a  data-hotel="{{hotel.id}}" class="add-to-bookmark-{{hotel.id}}" id="add-to-bookmark"><button class="btn btn-primary btn-sm"><i class="fa fa-heart"  style="color: rgb(229, 225, 225);"></i></button></a>
+                        {% endif %}
+                        <!-- Add Review Button -->
+                        {% if user.is_authenticated %}
+                        {% if not reviews %}
+                 <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#reviewModal" id="add-review-button">
+    <i class="bi bi-pencil-square"></i> Add Review
+                 </button>
+                 {% endif %}
+
+                     <!-- Review Modal -->
+                <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reviewModalLabel">Write a Review</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="review_div">
+               
+                    <div class="mb-3">
+                        <label for="reviewText" class="form-label">Your Review</label>
+                        <textarea class="form-control" id="review-input" name="review" rows="4" placeholder="Write your review here..." required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rating</label>
+                        <select class="form-select" id="rating-input" name="rating" required>
+                            <option value="" selected disabled>Select Rating</option>
+                            <option value="1">★☆☆☆☆</option>
+                            <option value="2">★★☆☆☆</option>
+                            <option value="3">★★★☆☆</option>
+                            <option value="4">★★★★☆</option>
+                            <option value="5">★★★★★</option>
+                        </select>
+                    </div>
+                    <button type="submit" data-hotel="{{hotel.id}}" class="btn btn-primary w-100" id="review-btn">Submit Review</button>
+               
+            </div>
+        </div>
+    </div>
+                </div>
+                       {% endif %}
+ 
+                        
+                        {% if hotel.featured == True %}
+                        <button class="btn btn-warning btn-sm"><i class="bi bi-star"></i> Featured</button>
+                        {% endif %}
+                        <button id="shareButton" class="btn btn-info btn-sm" data-url="{{ request.build_absolute_uri }}">
+                            <i class="bi bi-share"></i> Share
+                        </button>
+
+                       <!-- Check Weather Button -->
+<form method="get" class="mt-3" style="position: relative; left:750px;bottom: 330px;">
+    <button type="button" class="btn btn-primary btn-lg shadow-sm" style="border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#weatherModal">
+        <i class="bi bi-cloud-sun"></i> 
+    </button>
+</form>
+
+<!-- Weather Modal -->
+<div class="modal fade" id="weatherModal" tabindex="-1" aria-labelledby="weatherModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="weatherModalLabel">Current Weather</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+            </div>
+            <div class="modal-body">
+                {% if weather_data %}
+                    <div class="text-center">
+                        <img src="http://openweathermap.org/img/wn/{{ weather_data.icon }}@2x.png" alt="Weather Icon">
+                        <h3>{{ weather_data.temperature }}°C</h3>
+                        <p>{{ weather_data.description|title }}</p>
+                        <hr>
+                        <p><strong>Advice:</strong> {{ advice }}</p>
+                    </div>
+                {% else %}
+                    <p>Unable to fetch weather data. Please try again later.</p>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                       
+                    </div>
+                    <hr>
+                    <p>{{hotel.description|safe}}<p>
+                    <br><br><hr>
+                    <h5 style="background-color: purple; padding: 10px;">Tags</h5><br>
+                    <div class="tags">
+                        {% for t in hotel.tags.all %}
+                        <i class="fa fa-tag" aria-hidden="true" ></i><span>{{t.name}}</span>
+                        {% endfor %}
+                    </div><br><hr>
+                    <h5 class="mt-4" style="background-color: purple; padding: 10px;">Room Types</h5>
+<form method="get" action="">
+    <label for="currency">Choose Currency:</label>
+    <select name="currency" id="currency" onchange="this.form.submit()">
+        {% for currency in currencies %}
+        <option value="{{ currency }}" {% if user_currency == currency %}selected{% endif %}>{{ currency }}</option>
+        {% endfor %}
+    </select>
+</form>
+
+<div id="roomTypes">
+    {% for r in room_types %}
+    <div class="room-type-list">
+        <div class="d-flex justify-content-between">
+            <span class="room-type-name">{{ r.type }}</span>
+            <span class="price"><strong>Price/Night:</strong> ${{ r.price }} </span>
+        </div>
+        <div class="room-type-details"><strong>Room Capacity:</strong> {{ r.room_capacity }}</div>
+        <div class="room-type-details"><strong>Number of beds:</strong> {{ r.number_of_beds }}</div>
+        <div class="room-type-details"><strong>Converted Price:</strong> {{ r.converted_price }} {{ user_currency }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+
+                    <!-- <button id="showMoreBtn" class="btn btn-link btn-primary mt-3" style="text-decoration: none;">Show More</button> -->
+                    <h5 class="mt-4" style="background-color: var(--dark-bg); padding: 10px; color: white;">Amenities</h5><br>
+                    <div class="amenities-grid">
+                     {% for feature in hotel.hotelfeatures_set.all %}
+                        <div class="amenity-item">
+                            {% if feature.icon %}
+                                {% if feature.icon_type == "Fontawesome Icons" %}
+                                    <i class="fa fa-{{ feature.icon }}"></i>
+                                {% elif feature.icon_type == "Bootstrap Icons" %}
+                                    <i class="bi-{{ feature.icon }}"></i>
+                                {% elif feature.icon_type == "Box Icons" %}
+                                    <i class="bx bx-{{ feature.icon }}"></i>
+                                {% elif feature.icon_type == "Remi Icons" %}
+                                    <i class="ri-{{ feature.icon }}-line"></i>
+                                {% elif feature.icon_type == "Flat Icons" %}
+                                    <i class="fi fi-{{ feature.icon }}"></i>
+                                {% endif %}
+                            {% endif %}
+                            <span>{{ feature.name }}</span>
+                        </div>
+                    {% endfor %}
+                    </div><br><hr>
+
+                    <h5 class="mt-4"style="background-color: purple; padding: 10px;">FAQs</h5><br>
+                    <div class="faq">
+                        {% for faq in hotel.hotelfaqs_set.all %}
+                        <div class="mb-3">
+                            <div class="question" onclick="toggleAnswer(this)" style="cursor: pointer;">
+                                <p class="mb-0">{{ faq.question }} <i class="fas fa-chevron-down float-end"></i></p>
+                            </div>
+                            <div class="answer" style="display: none; padding: 10px; margin-top: 10px; background-color: #f8f9fa;">
+                                {{ faq.answer }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="col-md-4">
+                    <h4 style="background-color: var(--dark-bg); padding: 10px; color: white;">Check Room Availability</h4>
+                    <form  method ="POST" action="{% url 'booking:check_room_avaliability' %}">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{hotel.id}}" name="hotel-id" id="">
+                        <div class="mb-3">
+                            <label for="checkin" class="form-label">Check-In</label>
+                            <input type="date" class="form-control checkin-date" name="checkin" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="checkout" class="form-label">Check-Out</label>
+                            <input type="date" class="form-control checkout-date" name="checkout" required>
+                        </div>
+
+                        
+                        <div class="mb-3">
+                            <label for="adults" class="form-label">Adults</label>
+                            <div class="quantity-buttons">
+                                <button type="button" onclick="decrement('adults')">-</button>
+                                <input type="number" class="form-control" id="adults" name="adult" min="1" value="1" style="width: 60px; text-align: center;">
+                                <button type="button" onclick="increment('adults')">+</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="children" class="form-label">Children</label>
+                            <div class="quantity-buttons">
+                                <button type="button" onclick="decrement('children')">-</button>
+                                <input type="number" class="form-control" id="children" name="children" min="0" value="0" style="width: 60px; text-align: center;">
+                                <button type="button" onclick="increment('children')">+</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="roomType" class="form-label">Room Type</label>
+                            <select class="form-select" name="room_type">
+                                {% for r in hotel.hotel_room_types %}
+                                <option value="{{r.slug}}">{{r.type}}</option>
+                                {% endfor %}
+                                
+                            </select>
+                        </div>
+                        <button type="submit" class="btn  w-100" style="background-color: var(--dark-bg);color: white; " >Check Availability</button>
+                        
+                    </form><br><br>
+                    <div class="review-section mt-4">
+                        <h5>Reviews ( {{ hotel.rating_count }})</h5>
+                        <div class="review-rating-box" style="background-color: purple; color: white; padding: 20px; text-align: center;">
+                            <strong>{{hotel.average_rating}}</strong><br>
+                            <span>Out of {{ hotel.rating_count }} Reviews</span>
+                        </div>
+                        {% for r in all_reviews %}
+                        <div class="review-item mt-3">
+                            <div class="d-flex align-items-center">
+                                <img src="{{r.user.profile.image.url}}" alt="Profile" class="profile-img">
+                                <div class="review-details ms-3">
+                                    <div class="utf_star_rating_section" data-rating="{{r.rating}}"></div>
+                                    <div class="name-date">
+                                        <strong>{{r.user.profile.full_name}}</strong> <span class="date">{{r.date}}</span>
+                                    </div>
+                                    <p class="review-comment">{{r.review}}</p>
+                                    {% if r.reply %}
+                                  <div class="reply-box mt-2 p-3" style="background-color: #f8f9fa; border-left: 4px solid var(--dark-bg);">
+                                    <strong>Hotel Response:</strong>
+                                     <p class="reply-text">{{ r.reply }}</p>
+                                  </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            const roomTypes = document.getElementById('roomTypes');
+            const showMoreBtn = document.getElementById('showMoreBtn');
+            const originalRooms = roomTypes.innerHTML;
+
+            const extraRooms = `
+                <div class="room-type-list">
+                    <div class="d-flex justify-content-between">
+                        <span class="room-type-name">Executive Suite</span>
+                        <span class="price">$500</span>
+                    </div>
+                    <div class="room-type-details">Beds: 4 | Rooms: 2</div>
+                </div>
+                <div class="room-type-list">
+                    <div class="d-flex justify-content-between">
+                        <span class="room-type-name">Presidential Suite</span>
+                        <span class="price">$1000</span>
+                    </div>
+                    <div class="room-type-details">Beds: 5 | Rooms: 1</div>
+                </div>`;
+
+            let isExpanded = false;
+
+            showMoreBtn.addEventListener('click', () => {
+                if (isExpanded) {
+                    roomTypes.innerHTML = originalRooms;
+                    showMoreBtn.textContent = 'Show More';
+                } else {
+                    roomTypes.innerHTML += extraRooms;
+                    showMoreBtn.textContent = 'Show Less';
+                }
+                isExpanded = !isExpanded;
+            });
+
+            
+            function increment(id) {
+        const input = document.getElementById(id);
+        input.value = parseInt(input.value) + 1;
+    }
+    function decrement(id) {
+        const input = document.getElementById(id);
+        if (parseInt(input.value) > parseInt(input.min)) {
+            input.value = parseInt(input.value) - 1;
+        }
+    }
+
+    function toggleAnswer(element) {
+                const answer = element.nextElementSibling;
+                const icon = element.querySelector('i');
+                
+                if (answer.style.display === 'none') {
+                    answer.style.display = 'block';
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    answer.style.display = 'none';
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            }
+
+            document.querySelectorAll('.faq .question p').forEach(questionP => {
+                questionP.addEventListener('click', () => {
+                    const answer = questionP.closest('.question').nextElementSibling;
+                    if (answer && answer.classList.contains('answer')) {
+                        if (answer.style.display === 'none' || !answer.style.display) {
+                            answer.style.display = 'block';
+                            questionP.querySelector('i').classList.replace('bi-chevron-down', 'bi-chevron-up');
+                        } else {
+                            answer.style.display = 'none';
+                            questionP.querySelector('i').classList.replace('bi-chevron-up', 'bi-chevron-down');
+                        }
+                    }
+                });
+            });
+        </script>
+
+        <script>
+            $(document).on("click","#add-to-bookmark",function(){
+  let button = $(this)
+  let id=button.attr("data-hotel");
+  console.log(id);
+
+  $.ajax({
+    url:"/dashboard/add_to_bookmark/",
+    beforeSend:function(){
+      console.log("Add to bookmark");
+    },
+    data:{
+      "id":id
+    },
+    success:function(res){
+       if(res.data == "Bookmark Deleted"){
+        button.html('<i class="fa fa-heart"  style="color: rgb(229, 225, 225);"></i>')
+       }else{
+        button.html('<i class="fa fa-heart" style="color: red; fill: red;"></i>')
+       }
+       if (res.data == "Login To Bookmark Hotel"){
+           alert("Login To Bookmark Hotel")
+       }
+
+       const Toast = Swal.mixin({
+         toast:true,
+         position:"top",
+         showConfirmButton:false,
+         timer:3000,
+       })
+
+       Toast.fire({
+        icon:res.icon,
+        title:res.data
+       });
+
+    },
+
+  });
+
+});
+ $(document).on("click","#review-btn",function(){
+    let button = $(this)
+    let id=button.attr("data-hotel")
+    let review=$("#review-input").val();
+    let rating=$("#rating-input").val();
+
+    $.ajax({
+        url:"/dashboard/add_review/",
+        beforeSend:function(){
+      console.log("Adding review..");
+    },
+    data:{
+      "id":id,
+      "review":review,
+      "rating":rating,
+    },
+    success:function(res){
+        const Toast = Swal.mixin({
+         toast:true,
+         position:"top",
+         showConfirmButton:false,
+         timer:3000,
+       })
+
+       Toast.fire({
+        icon:res.icon,
+        title:res.data
+       });
+     $("#add-review-button").hide()
+     $("#review_div").html("Review Submitted Successfully")
+
+
+    }
+
+    })
+ })
+  
+        </script>
+        <script>
+            const today=new Date()
+            
+            const formattedToday=today.toISOString().split("T")[0];
+            console.log(formattedToday);
+            document.querySelector(".checkout-date").min=formattedToday;
+            document.querySelector(".checkin-date").min=formattedToday;
+        </script>
+
+<script>
+    document.getElementById("shareButton").addEventListener("click", function() {
+        var url = this.getAttribute("data-url"); // Get the URL from the data-url attribute
+        var tempInput = document.createElement("input");
+        document.body.appendChild(tempInput);
+        tempInput.value = url;
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+
+        // Change button text to 'Copied'
+        this.innerHTML = '<i class="bi bi-check-circle"></i> Copied';
+        
+        // Optionally, display a tooltip or alert to indicate the link was copied
+        var tooltip = document.getElementById("tooltip");
+        tooltip.style.display = "block";
+        setTimeout(function() {
+            tooltip.style.display = "none";
+        }, 2000);
+    });
+</script>
+
+
+
+
+    </body>
+{% endblock content %}

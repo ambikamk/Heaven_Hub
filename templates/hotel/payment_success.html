@@ -1,0 +1,94 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<title>Payment Success</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        background-color: #e8e6f5;
+    }
+    .success-container {
+        margin: 50px auto;
+        padding: 20px;
+        max-width: 600px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 100px;
+    }
+    .success-icon {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 5px solid #28a745;
+        border-radius: 50%;
+        background-color: #e6f9eb;
+    }
+    .success-icon i {
+        font-size: 50px;
+        color: #28a745;
+    }
+    h1 {
+        margin-top: 20px;
+        font-size: 1.8em;
+        color: #333;
+    }
+    p {
+        margin: 10px 0;
+        color: #555;
+        font-size: 1em;
+    }
+    .button-container {
+        margin-top: 30px;
+    }
+    .button-container a {
+        text-decoration: none;
+        padding: 10px 20px;
+        margin: 0 10px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 1em;
+        cursor: pointer;
+    }
+    .dashboard-btn {
+        background-color: #007bff;
+    }
+    .dashboard-btn:hover {
+        background-color: #0056b3;
+    }
+    .invoice-btn {
+        background-color: #6c757d;
+    }
+    .invoice-btn:hover {
+        background-color: #545b62;
+    }
+    .button-container i {
+        margin-right: 5px;
+    }
+</style>
+<div class="success-container">
+    <div class="success-icon">
+        <i class="fas fa-check-circle"></i>
+    </div>
+    <h1>Checkout & Payment Successful</h1>
+    <p>We have sent your booking summary to <strong>{{booking.email}}</strong><br>Your booking id is<strong> {{booking.booking_id}}</strong></p>
+    <p>Thank You!</p>
+    <div class="button-container">
+        <a href="{% url 'user_dashboard:dashboard' %}" class="dashboard-btn">
+            <i class="fas fa-th-large"></i> View Dashboard
+        </a>
+        <a href="{% url 'hotel:generate_invoice' booking.booking_id %}" class="invoice-btn">
+            <i class="fas fa-file-invoice"></i> View Invoice
+        </a>
+    </div>
+</div>
+{% endblock content %}

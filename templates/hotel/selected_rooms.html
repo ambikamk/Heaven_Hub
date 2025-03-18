@@ -1,0 +1,172 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+    <title>Selected Rooms</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            
+           
+            
+        
+    }
+        
+        .banner {
+            background-image: url('/static/img/room1.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            height:300px;
+        }
+        .banner h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .banner p {
+            margin-top: 10px;
+        }
+        .container {
+            display: flex;
+            margin: 20px;
+        }
+        .left-section {
+            flex: 2;
+            margin-right: 20px;
+        }
+        .right-section {
+            flex: 1;
+        }
+        .container-box {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .container-box h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .selected-room {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .selected-room .delete-icon {
+            color: red;
+            cursor: pointer;
+        }
+        .billing-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .billing-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .billing-form button {
+            width: 100%;
+            background: #6c63ff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .hotel-info img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .hotel-details {
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+        .booking-summary {
+            font-size: 0.9em;
+        }
+        .booking-summary p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="selection-list">
+    <div class="banner">
+        <h1>All Room Selections</h1>
+        <p>Home &gt;&gt; Hotel &gt;&gt; Rooms &gt;&gt; My Selected Rooms</p>
+    </div>
+
+    <div class="container">
+        <!-- Left Section -->
+        <div class="left-section">
+            <!-- Selected Rooms -->
+            <div class="container-box">
+                <h2><i class="fas fa-bed"></i> Selected Rooms</h2>
+                {% for id,item in data.items %}
+                <div class="selected-room">
+                    <span>{{item.room_name}}</span>
+                    <span>Beds: {{item.number_of_beds}}</span>
+                    <span>${{item.room_price}}</span>
+                    <a style="cursor:pointer;" class="delete-item" data-item="{{id}}"><i class="fas fa-trash delete-icon"></i></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Billing Information -->
+            <div class="container-box">
+                <h2><i class="fas fa-user"></i> Billing Information</h2>
+                <form class="billing-form" method="POST">
+                    {% csrf_token %}
+                    <label for="full-name">Full Name</label>
+                    <input type="text"  name="full_name" placeholder="Enter your first name">
+
+                    <label for="email">Email</label>
+                    <input type="email" name="email" placeholder="Enter your email">
+
+                    <label for="phone">Phone</label>
+                    <input type="tel" name="phone" placeholder="Enter your phone number">
+
+                    <button type="submit">Continue to Checkout</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <!-- Hotel Info -->
+            <div class="container-box hotel-info">
+                <img src="{{hotel.image.url}}" alt="Hotel">
+                <div class="hotel-details">
+                    <p>{{hotel.name}}</p>
+                    <p><i class="fa fa-map-marker-alt me-2"></i>{{hotel.address}}</p>
+                    <p><i class="fas fa-phone"></i>{{hotel.mobile}}</p>
+                    <p><i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> (18 Reviews)</p>
+                </div>
+            </div>
+
+            <!-- Booking Summary -->
+            <div class="container-box booking-summary">
+                <h2><i class="fas fa-calendar-alt"></i> Booking Summary</h2>
+                <p>Check-in:<span style="margin-left:150px;">{{checkin}}</span></p>
+                <p>Check-out:<span style="margin-left:140px;">{{checkout}}</span></p>
+                <p>Total Days:<span style="margin-left:150px;">{{total_days}} Days</span></p>
+                <p>Adults: <span style="margin-left:175px;">{{adult}} Adult</span></p>
+                <p>Children: <span style="margin-left:160px;">{{children}} Children</span></p>
+                <p>VAT:<span style="margin-left:195px;">$0.00</span></p><br><br>
+                <p><strong>Total Cost: <span style="margin-left:140px;">${{total}}</strong></p></span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock content %}

@@ -1,0 +1,157 @@
+{% extends 'partials/base.html' %}
+
+
+{% block content %}
+
+    {% load static %}
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+           
+            /* height: 100vh; */
+            margin: 0;
+            /* display: flex;
+            justify-content: center;
+            align-items: center; */
+            
+        }
+        .container-fluid {
+            /* background: #fff; */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 1000px; /* Limit the max width */
+            display: flex;
+
+        }
+        .row {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+        .form-section, .image-section {
+            width: 50%; /* Each section takes up 50% of the width */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-section {
+            flex-direction: column;
+            padding: 30px;
+        }
+        .form-control {
+            border-radius: 25px;
+            height: 35px;
+            margin-bottom: 15px;
+        }
+        .form-control:focus {
+            border-color: #4c83ff;
+            box-shadow: 0 0 5px rgba(76, 131, 255, 0.5);
+        }
+        .btn-primary {
+            background-color: #4c83ff;
+            border: none;
+            border-radius: 25px;
+            padding: 8px 15px;
+        }
+        .btn-primary:hover {
+            background-color: #3a6dd0;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-header h2 {
+            margin: 0;
+            color: #333;
+        }
+        .form-header p {
+            color: #666;
+            font-size: 14px;
+        }
+        .image-section img {
+            width: 100%;
+            height: 100%; /* Ensure the image takes up the full section */
+            object-fit: cover; /* Ensure the image covers the space properly */
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        @media (max-width: 768px) {
+            .container-fluid {
+                flex-direction: column; /* Stack the form and image sections vertically on smaller screens */
+            }
+            .form-section, .image-section {
+                width: 100%;
+                height: auto; /* Adjust height for better mobile experience */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Form Section -->
+            <div class="col-md-6 form-section">
+                <div class="form-header">
+                    <h2>Create an Account</h2>
+                    <p>Fill in the details to get started</p>
+                </div>
+                <form method="POST" novalidate>
+                    {% csrf_token %}
+                    <!-- Full Name -->
+                    <div>
+                        <label for="full_name" class="form-label">Full Name</label>
+                        <input type="text" id="full_name" name="full_name" class="form-control" placeholder="Enter Full Name" required>
+                    </div>
+                    <!-- Username -->
+                    <div>
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Enter Username" required>
+                    </div>
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" required>
+                    </div>
+                    <!-- Phone -->
+                    <div>
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter Phone Number" required>
+                    </div>
+                    <!-- Password -->
+                    <div>
+                        <label for="password1" class="form-label">Password</label>
+                        <input type="password" id="password1" name="password1" class="form-control" placeholder="Enter Password" required>
+                    </div>
+                    <!-- Confirm Password -->
+                    <div>
+                        <label for="password2" class="form-label">Confirm Password</label>
+                        <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password" required>
+                    </div>
+                    <!-- Submit Button -->
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </div>
+                    <!-- Login Redirect -->
+                    <p class="text-center text-muted mt-3">Already have an account? 
+                        <a href="{% url 'userauths:sign-in' %}" class="text-primary">Login</a>
+                    </p>
+                </form>
+            </div>
+            <!-- Image Section -->
+            <div class="col-md-6 image-section">
+                <img src="{% static 'img/register.jpg' %}" alt="Signup Image">
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+{% endblock content %}

@@ -1,0 +1,116 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+        <!-- Header Start -->
+        <div class="container-fluid bg-breadcrumb">
+            <div class="container text-center py-5" style="max-width: 900px;">
+                <h3 class="text-white display-3 mb-4">Our Services</h1>
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{% url 'hotel:index'%}">Home</a></li>
+                    
+                    <li class="breadcrumb-item active text-white">Services</li>
+                </ol>    
+            </div>
+        </div>
+        <!-- Header End -->
+
+        <!-- Services Start -->
+        <div class="container-fluid bg-light service py-5">
+            <div class="container py-5">
+                <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+                    <h5 class="section-title px-3">Searvices</h5>
+                    <h1 class="mb-0">Our Services</h1>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 pe-0">
+                                    <div class="service-content text-end">
+                                        <h5 class="mb-4">Online Reservations</h5>
+                                        <p class="mb-0">Effortlessly allows users to book hotel rooms seamlessly through our website.
+                                        </p>
+                                    </div>
+                                    <div class="service-icon p-4">
+                                        <i class="fa fa-calendar-check fa-4x text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="service-content-inner d-flex align-items-center  bg-white border border-primary rounded p-4 pe-0">
+                                    <div class="service-content text-end">
+                                        <h5 class="mb-4">Room Availability Management</h5>
+                                        <p class="mb-0">Provides real-time updates on room availability to avoid overbooking.
+                                        </p>
+                                    </div>
+                                    <div class="service-icon p-4">
+                                        <i class="fa fa-door-open  fa-4x text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 pe-0">
+                                    <div class="service-content text-end">
+                                        <h5 class="mb-4">Payment Integration</h5>
+                                        <p class="mb-0">Supports secure online payment options, including credit cards and digital wallets.
+                                        </p>
+                                    </div>
+                                    <div class="service-icon p-4">
+                                        <i class="fa fa-credit-card fa-4x text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 ps-0">
+                                    <div class="service-icon p-4">
+                                        <i class="fa fa-headset fa-4x text-primary"></i>
+                                    </div>
+                                    <div class="service-content">
+                                        <h5 class="mb-4">Customer Support</h5>
+                                        <p class="mb-0">Offers 24/7 assistance through chat, email, or phone for booking inquiries.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 ps-0">
+                                    <div class="service-icon p-4">
+                                        <i class="fa fa-undo-alt fa-4x text-primary"></i>
+                                    </div>
+                                    <div class="service-content">
+                                        <h5 class="mb-4">Cancellation and Refund Management</h5>
+                                        <p class="mb-0">Simplifies cancellations and processes refunds based on the hotel’s policy.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 ps-0">
+                                    <div class="service-icon p-4">
+                                        <i class="fa fa-star fa-4x text-primary"></i>
+                                    </div>
+                                    <div class="service-content">
+                                        <h5 class="mb-4">Personalized Recommendations</h5>
+                                        <p class="mb-0">Suggests rooms or packages based on user preferences and past bookings.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Services End -->
+
+       
+        {% endblock content %}
+        

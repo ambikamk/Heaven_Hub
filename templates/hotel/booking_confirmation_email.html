@@ -1,0 +1,23 @@
+<!-- hotel/templates/hotel/booking_confirmation_email.html -->
+
+<p>Dear {{ full_name }},</p>
+
+<p>We are pleased to inform you that your booking has been confirmed.</p>
+
+<p><strong>Booking Details:</strong></p>
+<ul>
+    <li>Hotel: {{ hotel }}</li>
+    <li>Room Type: {{ room_type }}</li>
+    <li>Check-in Date: {{ check_in_date }}</li>
+    <li>Check-out Date: {{ check_out_date }}</li>
+    <li>Number of Adults: {{ num_adults }}</li>
+    <li>Number of Children: {{ num_children }}</li>
+    <li>Total: ${{ total }}</li>
+    <li>Amount Saved: ${{ saved }}</li>
+    <li>Payment Status: {{ payment_status }}</li>
+    <li>Booking ID: {{ booking_id }}</li>
+</ul>
+
+<p>Thank you for choosing our service! We look forward to welcoming you.</p>
+
+<p>Best regards,<br> The Hotel Team</p>

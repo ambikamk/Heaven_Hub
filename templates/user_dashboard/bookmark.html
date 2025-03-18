@@ -1,0 +1,100 @@
+{% extends 'partials/dashboard_base.html' %}
+{% block content %}
+    <title>Bookmarks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .bookmark-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .bookmark-item img {
+            width: 150px;
+            height: 150px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .details {
+            flex: 1;
+            margin-left: 20px;
+            color: #333;
+        }
+
+        .details h2 {
+            margin: 0 0 10px;
+        }
+
+        .details p {
+            margin: 5px 0;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .details p i {
+            color: #1212f5;
+            margin-right: 10px;
+        }
+
+        .delete-button {
+            background-color: #9d2004;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .delete-button:hover {
+            background-color: #e63946;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>All Bookmark Hotels</h1>
+        {% for b in bookmark %}
+        <div class="bookmark-item">
+            <img src="{{b.hotel.image.url}}" alt="Hotel Image">
+            <div class="details">
+                <h2>{{b.hotel.name}}</h2>
+                <p><i class="fas fa-map-marker-alt"></i>{{b.hotel.address}}</p>
+                <p><i class="fas fa-envelope"></i>{{b.hotel.email}}</p>
+                <p><i class="fas fa-phone"></i>{{b.hotel.mobile}}</p>
+            </div>
+            <a href="{% url 'user_dashboard:delete_bookmark' b.bid %}"><button class="delete-button"><i class="fas fa-trash"></i> Delete</button></a>
+        </div>
+        {% endfor %}
+        <!-- Add more bookmark items as needed -->
+    </div>
+</body>
+{% endblock content %}

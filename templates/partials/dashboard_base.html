@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HavenHub Dashboard</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+   
+    <script src="https://unpkg.com/sweetalert2@7.8.2/dist/sweetalert2.all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+         body {
+    font-family: 'Arial', sans-serif;
+}
+
+.nav-link {
+    font-size: 16px;
+}
+
+
+
+header {
+    background-color: #f8f9fa;
+}
+
+header h1 {
+    font-size: 20px;
+}
+
+header img {
+    border: 2px solid #ddd;
+}
+
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        {% include "partials/dashboard_sidebar.html" %}
+
+        <!-- Main Content -->
+        <div class="flex-grow-1">
+            <!-- Header -->
+            <header class="d-flex justify-content-between align-items-center px-4 py-3 border-bottom">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-house-door-fill me-2 fs-4 text-primary"></i>
+                    <h1 class="h5 mb-0">Dashboard</h1>
+                </div>
+                
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-bell fs-4 text-secondary me-3"></i>
+                    <div class="d-flex align-items-center">
+                        <img src="{{ Profile.image.url }}" alt="User Photo" class="rounded-circle" width="40" height="40">
+                        <span class="ms-2">Hi, {{ request.user.username }}</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dynamic Content -->
+            <main class="p-4">
+                {% block content %}
+                {% endblock content %}
+            </main>
+        </div>
+    </div>
+
+
+    <script>
+        {% if messages %}
+            {% for message in messages %}
+                Swal.fire({
+                    title: "{% if message.tags == 'success' %}Success!{% elif message.tags == 'error' %}Error!{% else %}Notice!{% endif %}",
+                    text: "{{ message }}",
+                    icon: "{% if message.tags == 'success' %}success{% elif message.tags == 'error' %}error{% elif message.tags == 'warning' %}warning{% else %}info{% endif %}",
+                    confirmButtonText: "OK"
+                });
+            {% endfor %}
+        {% endif %}
+    </script>
+
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            {% for message in messages %}
+                Swal.fire({
+                    icon: '{{ message.tags|escapejs }}',
+                    title: '{{ message|escapejs }}',
+                    text: '{{ message.tags|escapejs }}',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            {% endfor %}
+        });
+    </script> -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

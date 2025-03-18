@@ -1,0 +1,89 @@
+{% extends 'partials/dashboard_base.html' %}
+{% block content %}
+    <title>All Bookings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .heading {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .heading span {
+            font-size: 14px;
+            color: #fff;
+            background-color: #28a745;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .booking-detail {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+        }
+        .booking-detail div {
+            margin: 5px 0;
+        }
+        .btn-view {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            color: #fff;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        .btn-view i {
+            margin-right: 5px;
+        }
+        .btn-view:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">
+            <h1>All Bookings</h1>
+            
+        </div>
+        {% for b in bookings %}
+        <div class="booking-detail">
+            <p><strong>{{b.full_name}}</strong><span class="badge bg-success">{{b.payment_status}}</span></p><br>
+            <div><strong>Booking Item:</strong>{{b.hotel.name}}</div>
+            <div><strong>Check-in Date:</strong>{{b.check_in_date}}</div>
+            <div><strong>Check-out Date:</strong>{{b.check_out_date}}</div>
+            <div><strong>Total Days:</strong>{{b.total_days}}</div>
+            <div><strong>Adults:</strong>{{b.num_adults}}</div>
+            <div><strong>Children:</strong>{{b.num_children}}</div>
+            <div><strong>Price:</strong> ${{b.total}}</div>
+            <a href="{% url 'user_dashboard:booking_detail' b.booking_id%}" class="btn-view"><i class="fas fa-eye"></i> View Booking Detail</a>
+        </div>
+        {% endfor %}
+
+       
+    </div>
+</body>
+{% endblock content %}
+
